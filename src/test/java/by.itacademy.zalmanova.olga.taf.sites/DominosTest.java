@@ -4,13 +4,14 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.safari.SafariDriver;
 
 import java.util.concurrent.TimeUnit;
 
 public class DominosTest {
-    DominosPage dominosPage = new DominosPage();
+    DominosPage dominosPage;
     SafariDriver driver;
 
     @BeforeEach
@@ -18,6 +19,7 @@ public class DominosTest {
         driver = new SafariDriver();
         driver.get("https://dominos.by/");
         driver.manage().window().maximize();
+        dominosPage = new DominosPage();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
     }
@@ -25,29 +27,20 @@ public class DominosTest {
     @Test
     public void testWithInvalidEmailAndValidPassword() {
 
-        WebElement buttonClose = driver.findElement(By.cssSelector(dominosPage.buttonClose));
-        buttonClose.click();
-        WebElement buttonSignInXpath = driver.findElement(By.xpath(dominosPage.buttonSignInXpath));
-        buttonSignInXpath.click();
-        WebElement inputEmailXpath = driver.findElement(By.xpath(dominosPage.inputEmailXpath));
-        inputEmailXpath.sendKeys("email");
-        WebElement inputPasswordXpath = driver.findElement(By.xpath(dominosPage.inputPasswordXpath));
-        inputPasswordXpath.sendKeys("987123");
-        WebElement buttonSubmitXpath = driver.findElement(By.xpath(dominosPage.buttonSubmitXpath));
-        buttonSubmitXpath.click();
+        dominosPage.clickCloseButton(driver);
+        dominosPage.clickSignInButton(driver);
+        dominosPage.sendKeysInputEmail(driver, "email");
+        dominosPage.sendKeysInputPassword(driver, "54321");
+        dominosPage.clickSubmitButton(driver);
     }
 
     @Test
     public void testCorrectEmailPassword() {
 
-        WebElement buttonSignInXpath = driver.findElement(By.xpath(dominosPage.buttonSignInXpath));
-        buttonSignInXpath.click();
-        WebElement inputEmailXpath = driver.findElement(By.xpath(dominosPage.inputEmailXpath));
-        inputEmailXpath.sendKeys("olga@gmail.com");
-        WebElement inputPasswordXpath = driver.findElement(By.xpath(dominosPage.inputPasswordXpath));
-        inputPasswordXpath.sendKeys("987123");
-        WebElement buttonSubmitXpath = driver.findElement(By.xpath(dominosPage.buttonSubmitXpath));
-        buttonSubmitXpath.click();
+        dominosPage.clickSignInButton(driver);
+        dominosPage.sendKeysInputEmail(driver, "olgazalmanova085@gmail.com");
+        dominosPage.sendKeysInputPassword(driver, "12345");
+        dominosPage.clickSubmitButton(driver);
     }
 
     @AfterEach

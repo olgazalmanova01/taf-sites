@@ -9,12 +9,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.safari.SafariDriver;
 
     public class TripadvisorTest {
-        TripadvisorPage tripadvisorPage = new TripadvisorPage();
+        TripadvisorPage tripadvisorPage;
         SafariDriver driver;
 
         @BeforeEach
         public void beforeTest() {
-        WebDriver driver = new SafariDriver();
+        driver = new SafariDriver();
+        tripadvisorPage = new TripadvisorPage();
         driver.get("http://www.tripadvisor.com");
         driver.manage().window().maximize();
         }
@@ -22,75 +23,57 @@ import org.openqa.selenium.safari.SafariDriver;
         @Test
         public void testEmptyEmail() {
 
-        WebElement buttonLoginXpath = driver.findElement(By.xpath(tripadvisorPage.buttonLoginXpath));
-        buttonLoginXpath.click();
-
+        tripadvisorPage.clickLoginButton(driver);
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='regcontroller']")));
-
-        WebElement buttonContinueWithEmail = driver.findElement(By.xpath(tripadvisorPage.buttonContinueWithEmail));
-        buttonContinueWithEmail.click();
-        WebElement buttonSubmitXpath = driver.findElement(By.xpath(tripadvisorPage.buttonSubmitXpath));
-        buttonSubmitXpath.click();
+        tripadvisorPage.clickContinueButton(driver);
+        tripadvisorPage.clickSubmitButton(driver);
         }
 
         @Test
         public void testInvalidEmail() {
-            WebElement buttonLoginXpath = driver.findElement(By.xpath(tripadvisorPage.buttonLoginXpath));
-            buttonLoginXpath.click();
+
+            tripadvisorPage.clickLoginButton(driver);
             driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='regcontroller']")));
-            WebElement buttonContinueWithEmail = driver.findElement(By.xpath(tripadvisorPage.buttonContinueWithEmail));
-            buttonContinueWithEmail.click();
-            WebElement inputEmailXpath = driver.findElement(By.xpath(tripadvisorPage.inputEmailXpath));
-            inputEmailXpath.sendKeys("test");
-            WebElement buttonSubmitXpath = driver.findElement(By.xpath(tripadvisorPage.buttonSubmitXpath));
-            buttonSubmitXpath.click();
+            tripadvisorPage.clickContinueButton(driver);
+            tripadvisorPage.sendKeysInputEmail(driver, "email");
+            tripadvisorPage.clickSubmitButton(driver);
         }
 
         @Test
         public void testWithWrongEmail() {
-            WebElement buttonLoginXpath = driver.findElement(By.xpath(tripadvisorPage.buttonLoginXpath));
-            buttonLoginXpath.click();
+
+            tripadvisorPage.clickLoginButton(driver);
             driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='regcontroller']")));
-            WebElement buttonContinueWithEmail = driver.findElement(By.xpath(tripadvisorPage.buttonContinueWithEmail));
-            buttonContinueWithEmail.click();
-            WebElement inputEmailXpath = driver.findElement(By.xpath(tripadvisorPage.inputEmailXpath));
-            inputEmailXpath.sendKeys("test");
-            WebElement inputPasswordXpath = driver.findElement(By.xpath(tripadvisorPage.inputPasswordXpath));
-            inputPasswordXpath.sendKeys("0108");
-            WebElement buttonSubmitXpath = driver.findElement(By.xpath(tripadvisorPage.buttonSubmitXpath));
-            buttonSubmitXpath.click();
+            tripadvisorPage.clickContinueButton(driver);
+            tripadvisorPage.sendKeysInputEmail(driver, "email");
+            tripadvisorPage.sendKeysInputPassword(driver, "54321");
+            tripadvisorPage.clickSubmitButton(driver);
+
         }
 
         @Test
         public void testEmptyPassword() {
-            WebElement buttonLoginXpath = driver.findElement(By.xpath(tripadvisorPage.buttonLoginXpath));
-            buttonLoginXpath.click();
+
+            tripadvisorPage.clickLoginButton(driver);
             driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='regcontroller']")));
-            WebElement buttonContinueWithEmail = driver.findElement(By.xpath(tripadvisorPage.buttonContinueWithEmail));
-            buttonContinueWithEmail.click();
-            WebElement inputEmailXpath = driver.findElement(By.xpath(tripadvisorPage.inputEmailXpath));
-            inputEmailXpath.sendKeys("test1@gmail.com");
-            WebElement buttonSubmitXpath = driver.findElement(By.xpath(tripadvisorPage.buttonSubmitXpath));
-            buttonSubmitXpath.click();
+            tripadvisorPage.clickContinueButton(driver);
+            tripadvisorPage.sendKeysInputEmail(driver, "email");
+            tripadvisorPage.clickSubmitButton(driver);
         }
 
         @Test
         public void testCorrectEmailAndPassword() {
-            WebElement buttonLoginXpath = driver.findElement(By.xpath(tripadvisorPage.buttonLoginXpath));
-            buttonLoginXpath.click();
+            tripadvisorPage.clickLoginButton(driver);
             driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='regcontroller']")));
-            WebElement buttonContinueWithEmail = driver.findElement(By.xpath(tripadvisorPage.buttonContinueWithEmail));
-            buttonContinueWithEmail.click();
-            WebElement inputEmailXpath = driver.findElement(By.xpath(tripadvisorPage.inputEmailXpath));
-            inputEmailXpath.sendKeys("test1@gmail.com");
-            WebElement inputPasswordXpath = driver.findElement(By.xpath(tripadvisorPage.inputPasswordXpath));
-            inputPasswordXpath.sendKeys("8763");
-            WebElement buttonSubmitXpath = driver.findElement(By.xpath(tripadvisorPage.buttonSubmitXpath));
-            buttonSubmitXpath.click();
+            tripadvisorPage.clickContinueButton(driver);
+            tripadvisorPage.sendKeysInputEmail(driver, "email");
+            tripadvisorPage.sendKeysInputPassword(driver, "54321");
+            tripadvisorPage.clickSubmitButton(driver);
         }
 
         @AfterEach
         public void theEnd(){
+
             driver.quit();
         }
     }

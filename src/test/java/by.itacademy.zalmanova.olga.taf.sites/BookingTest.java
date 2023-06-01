@@ -11,13 +11,13 @@ import org.openqa.selenium.safari.SafariDriver;
 import java.util.concurrent.TimeUnit;
 
 public class BookingTest {
-    BookingPage bookingPage = new BookingPage();
+    BookingPage bookingPage;
     SafariDriver driver;
 
     @BeforeEach
     public void test() {
-
-        WebDriver driver = new SafariDriver();
+        bookingPage = new BookingPage();
+        driver = new SafariDriver();
         driver.get("http://www.booking.com");
         driver.manage().window().maximize();
     }
@@ -25,63 +25,50 @@ public class BookingTest {
     @Test
     public void testEmptyEmail() {
 
-        WebElement buttonLoginXpath = driver.findElement(By.xpath(bookingPage.buttonloginXpath));
-        buttonLoginXpath.click();
-        WebElement buttonContinueWithEmail = driver.findElement(By.xpath(bookingPage.buttonContinueWithEmail));
-        buttonContinueWithEmail.click();
+       bookingPage.clickLoginButton(driver);
+       bookingPage.clickContinueButton(driver);
     }
 
     @Test
     public void testInvalidEmail() {
 
-        WebElement buttonLoginXpath = driver.findElement(By.xpath(bookingPage.buttonloginXpath));
-        buttonLoginXpath.click();
-        WebElement inputEmailXpath = driver.findElement(By.xpath(bookingPage.inputEmailXpath));
-        inputEmailXpath.sendKeys("test");
-        WebElement buttonContinueWithEmail = driver.findElement(By.xpath(bookingPage.buttonContinueWithEmail));
-        buttonContinueWithEmail.click();
+       bookingPage.clickLoginButton(driver);
+       bookingPage.sendKeysInputEmail(driver, "email");
+       bookingPage.clickContinueButton(driver);
+       bookingPage.clickSubmitButton(driver);
     }
 
     @Test
     public void testValidEmail() {
-        WebElement buttonLoginXpath = driver.findElement(By.xpath(bookingPage.buttonloginXpath));
-        buttonLoginXpath.click();
-        WebElement inputEmailXpath = driver.findElement(By.xpath(bookingPage.inputEmailXpath));
-        inputEmailXpath.sendKeys("test@gmail.com");
-        WebElement buttonContinueWithEmail = driver.findElement(By.xpath(bookingPage.buttonContinueWithEmail));
-        buttonContinueWithEmail.click();
+        bookingPage.clickLoginButton(driver);
+        bookingPage.sendKeysInputEmail(driver, "email");
+        bookingPage.clickContinueButton(driver);
+        bookingPage.clickSubmitButton(driver);
     }
 
     @Test
     public void testValidEmailEmptyPassword() {
 
-        WebElement buttonLoginXpath = driver.findElement(By.xpath(bookingPage.buttonloginXpath));
-        buttonLoginXpath.click();
-        WebElement inputEmailXpath = driver.findElement(By.xpath(bookingPage.inputEmailXpath));
-        inputEmailXpath.sendKeys("test@gmail.com");
-        WebElement buttonContinueWithEmail = driver.findElement(By.xpath(bookingPage.buttonContinueWithEmail));
-        buttonContinueWithEmail.click();
-        WebElement buttonSubmitXpath = driver.findElement(By.xpath(bookingPage.buttonSubmitXpath));
-        buttonSubmitXpath.click();
+        bookingPage.clickLoginButton(driver);
+        bookingPage.sendKeysInputEmail(driver, "email");
+        bookingPage.clickContinueButton(driver);
+        bookingPage.clickSubmitButton(driver);
     }
 
     @Test
     public void testValidEmailAndPassword() {
 
-        WebElement buttonLoginXpath = driver.findElement(By.xpath(bookingPage.buttonloginXpath));
-        buttonLoginXpath.click();
-        WebElement inputEmailXpath = driver.findElement(By.xpath(bookingPage.inputEmailXpath));
-        inputEmailXpath.sendKeys("test@gmail.com");
-        WebElement buttonContinueWithEmail = driver.findElement(By.xpath(bookingPage.buttonContinueWithEmail));
-        buttonContinueWithEmail.click();
-        WebElement inputPasswordXpath = driver.findElement(By.xpath(bookingPage.inputPasswordXpath));
-        inputPasswordXpath.sendKeys("123");
-        WebElement buttonSubmitXpath = driver.findElement(By.xpath(bookingPage.buttonSubmitXpath));
-        buttonSubmitXpath.click();
+        bookingPage.clickLoginButton(driver);
+        bookingPage.sendKeysInputEmail(driver, "email");
+        bookingPage.clickContinueButton(driver);
+        bookingPage.sendKeysInputPassword(driver,"54321");
+        bookingPage.clickSubmitButton(driver);
+
     }
 
     @AfterEach
     public void tearsDown() {
+
         driver.quit();
     }
 }
