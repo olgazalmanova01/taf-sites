@@ -1,4 +1,4 @@
-package by.itacademy.zalmanova.olga.taf.sites;
+package by.itacademy.zalmanova.olga.taf.sites.utils;
 
 import java.nio.charset.Charset;
 import java.util.Locale;

@@ -1,16 +1,17 @@
-package by.itacademy.zalmanova.olga.taf.sites;
+package by.itacademy.zalmanova.olga.taf.sites.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.safari.SafariDriver;
 
-public class BookingPage {
+public class TripadvisorPage {
 
-    String buttonLoginXpath = "#b2indexPage > div.c85f9f100b.cb6c8dd99f > div > div > div > div.dd2db21cc4 > div > a";
-    String inputEmailXpath = "//*[@id='username']";
-    String inputPasswordXpath = "//*[@id='password']";
-    String buttonContinueWithEmailXpath = "//*[@id='root']/div/div/div/div[2]/div[1]/div/div/div/div/div/div/form/div[3]/button";
-    String buttonSubmitXpath = "//*[@id='root']/div/div/div/div[2]/div[1]/div/div/div/div/div/div/form/div[2]/button";
+
+    String buttonLoginXpath = "//*[@id='lithium-root']/header/div/nav/div/div[2]/a[3]/span";
+    String buttonContinueWithEmailXpath = "//*[@id='ssoButtons']/button/span[2]";
+    String inputEmailXpath = "//*[@id='regSignIn.email']";
+    String inputPasswordXpath = "//*[@id='regSignIn.password']";
+    String buttonSubmitXpath = "//*[@id='regSignIn']/div[4]/button[1]";
 
     public void clickLoginButton(SafariDriver driver) {
 
@@ -36,6 +37,6 @@ public class BookingPage {
 
         WebElement buttonSubmit = driver.findElement(By.xpath(buttonSubmitXpath));
         buttonSubmit.click();
-}
+    }
 }
 

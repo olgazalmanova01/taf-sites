@@ -1,6 +1,9 @@
 package by.itacademy.zalmanova.olga.taf.sites;
 
 
+import by.itacademy.zalmanova.olga.taf.sites.pages.PizzatempoPage;
+import by.itacademy.zalmanova.olga.taf.sites.steps.PizzaTempoStep;
+import by.itacademy.zalmanova.olga.taf.sites.utils.Util;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,51 +16,43 @@ public class PizzatempoTest {
     Util util;
 
     @BeforeEach
-    public void beforeTest() {
-        driver = new SafariDriver();
-        driver.get("https://www.pizzatempo.by/");
-        driver.manage().window().maximize();
+    public void warmUp() {
+        driver = new SafariDriver(driver);
         pizzatempoPage = new PizzatempoPage(driver);
         pizzaTempoStep = new PizzaTempoStep(driver);
+        driver.manage().window().maximize();
+        pizzatempoPage.openBaseURL();
     }
 
     @Test
     public void testEmptyEmailAndPassword() {
 
-       pizzaTempoStep.fillLoginForm("", "");
+       pizzaTempoStep.fillLoginFormWithInvalidEmailAndPassword("","");
     }
 
     @Test
-    public void testWithWrongEmail() {
+    public void testWrongEmailAndAnyPassword() {
 
-        pizzatempoPage.sendKeysInputEmail(Util.generateEmail());
-        pizzatempoPage.sendKeysInputPassword(driver, Util.generatePassword());
-        pizzatempoPage.clickSubmitButton(driver);
+        pizzaTempoStep.fillLoginFormWithInvalidEmailAndPassword("email", Util.generatePassword());
     }
-
     @Test
-    public void testWithEmptyEmail() {
+    public void testEmptyEmailAndAnyPassword() {
 
-        pizzatempoPage.sendKeysInputPassword(driver, Util.generatePassword());
-        pizzatempoPage.clickSubmitButton(driver);
+        pizzaTempoStep.fillLoginFormWithInvalidEmailAndPassword("", Util.generatePassword());
     }
-
     @Test
-    public void testWithEmptyPassword() {
-        pizzatempoPage.sendKeysInputEmail(Util.generateEmail());
-        pizzatempoPage.clickSubmitButton(driver);
+    public void testCorrectEmailAndEmptyPassword() {
+
+        pizzaTempoStep.fillLoginFormWithInvalidEmailAndPassword(Util.generateEmail(),"");
     }
 
     @Test
     public void testValidEmailAndPassword() {
-        pizzatempoPage.sendKeysInputEmail("olgazalmanova085@gmail.com");
-        pizzatempoPage.sendKeysInputPassword(driver,"Fraser01");
-        pizzatempoPage.clickSubmitButton(driver);
-
+       pizzaTempoStep.fillLoginFormWithValidEmailAndPassword(Util.generateEmail(),Util.generatePassword());
     }
 
     @AfterEach
-    public void theEnd()  {
+    public void tearDown()  {
         driver.quit();
     }
 }

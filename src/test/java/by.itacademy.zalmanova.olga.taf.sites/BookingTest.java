@@ -1,14 +1,10 @@
 package by.itacademy.zalmanova.olga.taf.sites;
 
+import by.itacademy.zalmanova.olga.taf.sites.pages.BookingPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.safari.SafariDriver;
-
-import java.util.concurrent.TimeUnit;
 
 public class BookingTest {
     BookingPage bookingPage;
