@@ -1,26 +1,28 @@
 package by.itacademy.zalmanova.olga.taf.sites.pages;
 
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.safari.SafariDriver;
 
 public class PizzatempoPage {
     private SafariDriver driver;
-    private  String inputEmailAddressName  = "astroauth_login";
+    private String inputEmailAddressName  = "astroauth_login";
     private String inputPasswordName = "astroauth_pass";
     private String buttonSubmitName = "astroauth_submit";
     private String baseURL = "https://www.pizzatempo.by";
+    private String alertXpath = "//div[@class = 'popupContent']";
     private String AlertMessage = "Заполните форму";
     private String errorXpath = "//*[@id='alert']/div[2]/div[2]";
-    public PizzatempoPage(SafariDriver newDriver) {
-        driver = newDriver;
+    public PizzatempoPage(SafariDriver driver) {
+      this.driver = driver;
     }
     public void openBaseURL(){
         driver.get(baseURL);
     }
     public void clickSubmitButton() {
-        WebElement buttonSubmit = driver.findElement(By.name(buttonSubmitName);
+        WebElement buttonSubmit = driver.findElement(By.name(buttonSubmitName));
     buttonSubmit.click();
     }
 
@@ -48,4 +50,5 @@ public class PizzatempoPage {
                 "Ok";
         Assertions.assertEquals(expErrorMessage, actErrorMessage);
     }
-    }
+
+}

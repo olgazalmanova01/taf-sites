@@ -7,7 +7,7 @@ public class PizzaTempoStep {
     private SafariDriver driver;
 
     public PizzaTempoStep(SafariDriver driver) {
-        driver = newDriver;
+        driver = new SafariDriver();
         page = new PizzatempoPage(driver);
     }
         public void fillLoginFormWithInvalidEmailAndPassword (String email, String password){
@@ -16,7 +16,7 @@ public class PizzaTempoStep {
             page.sendKeysInputEmail(email);
             page.sendKeysInputPassword(password);
             page.clickSubmitButton();
-            page.getAllert();
+            page.getAlert();
         }
         public void fillLoginFormWithValidEmailAndPassword(String email, String password){
 
